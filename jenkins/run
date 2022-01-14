@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ ! -d ${HOME}/jenkins_home ]
+then
+mkdir -p ${HOME}/jenkins_home
+chmod 777 ${HOME}/jenkins_home
+fi
+
+docker rm -f jenkins
+
+docker run -d --name jenkins --rm -p 8080:8080  -p 50000:50000 -v ${HOME}/jenkins_home:/var/jenkins_home jenkins/jenkins
+
