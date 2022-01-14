@@ -1,0 +1,15 @@
+#!/bin/sh
+
+PORTAINERDATA= ${HOME}/portainer
+
+if [ ! -d ${PORTAINERDATA} ]
+then
+mkdir -p ${PORTAINERDATA}
+chmod 777 ${PORTAINERDATA}
+fi
+
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer -d --restart=always \
+   -v /var/run/docker.sock:/var/run/docker.sock \
+   -v ${PORTAINERDATA}:/data \
+    cr.portainer.io/portainer/portainer-ce:2.9.3
+
